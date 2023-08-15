@@ -1,0 +1,64 @@
+---
+title: "Day 2 Acitivty Part 2"
+format: html
+editor: visual
+warning: FALSE
+---
+
+```{r}
+library(tidyverse)
+library(here)
+library(janitor)
+```
+
+Reading in data
+
+```{r}
+mack_verts <- read_csv(here('data','AS00601.csv')) %>%
+  clean_names()
+```
+
+```{r}
+mc_wt_5 <- mack_verts$weight[5]
+mc_wt_5
+
+mc_length_8_20 <- mack_verts$length1[8:20]
+mc_length_8_20
+
+mc_dates <- c(mack_verts$sampledate)
+
+```
+
+```{r}
+#Making a salamander subset
+
+mc_salamanders <- mack_verts %>% 
+  filter(species == 'DITE')
+
+#making a scatterplot of length1 vs weight
+
+salamander_plot <- ggplot(data= mc_salamanders, aes(x=length1, y=weight))+
+  geom_point(aes (color= weight, alpha=0.5))+
+  scale_color_gradient(low= "blue", high= "yellow")+
+  labs(title= 'Snout vent length vs. Weight in Trout',x='Snout Vent Length(mm)', y= 'weight (grams)', caption= "Gregory, S.V. and I. Arismendi. 2020. Aquatic Vertebrate Population Study in Mack Creek, Andrews Experimental Forest, 1987 to present ver 14. Environmental Data Initiative. https://doi.org/10.6073/pasta/7c78d662e847cdbe33584add8f809165 (Accessed 2023-08-15)")
+ggsave('test.png')
+
+ggsave(filename=here::here('figs','salamander_size.png'),plot= salamander_plot)
+
+```
+
+```{r}
+mc_trout <- mack_verts %>% 
+  filter(species == 'ONCL')
+
+#making a scatterplot
+trout_plot <- ggplot(data= mc_trout,aes(x= length1, y= weight))+
+  geom_point(aes(color= reach)) +
+  scale_color_manual(values =c('pink','red','orange')) +
+  facet_wrap(~reach) +
+  labs(x='Trout Length',y='Trout Weight')
+
+trout_plot
+
+ggsave(filename=here::here('figs','cutthroat_size.png'),plot= trout_plot)
+```

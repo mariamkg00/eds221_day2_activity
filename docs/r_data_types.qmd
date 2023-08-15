@@ -1,0 +1,38 @@
+---
+title: "Day 2 Activity"
+format: html
+editor: visual
+---
+
+Section 1
+
+```{r}
+#1
+vec_1 <- c(2, 5, 9, 10, 8, 12, 1, 0)
+
+class(vec_1)
+#The class of this vector is numeric.
+
+typeof(vec_1)
+#The type of variables it stores is 'double'.
+
+vec_1_e3 <- vec_1[3]
+vec_1_e1 <- vec_1[1]
+vec_1_e5to7 <- vec_1[5:7]
+vec_1_char <- as.character(vec_1)
+
+#2
+vec_2 <- c(town= 'Santa Barbara', location= 'Rincon', swell= 'south')
+class(vec_2)
+length(vec_2)
+vec_2_e2 <- vec_2[2]
+
+#3 Making a data frame in R
+df_1 <- data.frame (region=c('A','B','A','D'),species=c ('otter', 'great white','sea lion','gray whale'),count= c(12,2,36,6))
+
+class(df_1)
+class(df_1$species)
+
+max_count <- max(df_1$count)
+max_count
+```
